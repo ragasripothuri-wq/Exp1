@@ -5,26 +5,50 @@ const KEYS = {
   cart: "dashdish.cart",
   session: "dashdish.session"
 };
+const CATALOG_VERSION_KEY = "foodzy.catalogVersion";
+const CATALOG_VERSION = 10;
 
 const photo = (id, width = 900) => `https://images.unsplash.com/${id}?auto=format&fit=crop&w=${width}&q=82`;
 const starterRestaurants = [
-  { id: "r1", name: "Olive & Ember", cuisine: "Mediterranean · Bowls", rating: 4.8, time: "20–30 min", fee: 1.49, image: photo("photo-1512621776951-a57141f2eefd"), accent: "#e1eee0", featured: true, menu: [
-    { id: "f1", name: "Green goddess bowl", detail: "Avocado, herby grains, pickled onion, tahini", price: 13.5, category: "Bowls", image: photo("photo-1512621776951-a57141f2eefd", 640), popular: true },
-    { id: "f2", name: "Charred lemon chicken", detail: "Free-range chicken, warm couscous, lemon oil", price: 16, category: "Mains", image: photo("photo-1532550907401-a500c9a57435", 640) },
-    { id: "f3", name: "Whipped feta toast", detail: "Sourdough, garden herbs, hot honey", price: 9, category: "Small plates", image: photo("photo-1525351484163-7529414344d8", 640) }
+  { id: "r1", name: "Olive & Ember", cuisine: "Mediterranean · Bowls", rating: 4.8, time: "20–30 min", fee: 0.4, image: photo("photo-1512621776951-a57141f2eefd"), accent: "#e1eee0", featured: true, menu: [
+    { id: "f1", name: "Green goddess bowl", detail: "Avocado, herby grains, pickled onion, tahini", price: 2.5, category: "Bowls", image: photo("photo-1512621776951-a57141f2eefd", 640), popular: true },
+    { id: "f2", name: "Charred lemon chicken", detail: "Free-range chicken, warm couscous, lemon oil", price: 3.2, category: "Mains", image: photo("photo-1532550907401-a500c9a57435", 640) },
+    { id: "f3", name: "Whipped feta toast", detail: "Sourdough, garden herbs, hot honey", price: 1.6, category: "Small plates", image: photo("photo-1525351484163-7529414344d8", 640) }
   ]},
-  { id: "r2", name: "Momo House", cuisine: "Nepalese · Dumplings", rating: 4.9, time: "25–35 min", fee: 0.99, image: photo("photo-1563245372-f21724e3856d"), accent: "#f6e0d7", featured: true, menu: [
-    { id: "f4", name: "Steamed chicken momos", detail: "Eight delicate dumplings, tomato sesame achar", price: 12, category: "Dumplings", image: photo("photo-1563245372-f21724e3856d", 640), popular: true },
-    { id: "f5", name: "Crispy chilli momos", detail: "Pan-seared, tossed with peppers and house chilli", price: 13.5, category: "Dumplings", image: photo("photo-1601050690597-df0568f70950", 640) },
-    { id: "f6", name: "Gurkha noodle bowl", detail: "Wok noodles, seasonal greens, toasted sesame", price: 14, category: "Mains", image: photo("photo-1569718212165-3a8278d5f624", 640) }
+  { id: "r2", name: "Momo House", cuisine: "Nepalese · Dumplings", rating: 4.9, time: "25–35 min", fee: 0.35, image: photo("photo-1563245372-f21724e3856d"), accent: "#f6e0d7", featured: true, menu: [
+    { id: "f4", name: "Steamed chicken momos", detail: "Eight delicate dumplings, tomato sesame achar", price: 2.6, category: "Dumplings", image: photo("photo-1563245372-f21724e3856d", 640), popular: true },
+    { id: "f5", name: "Crispy chilli momos", detail: "Pan-seared, tossed with peppers and house chilli", price: 2.9, category: "Dumplings", image: photo("photo-1601050690597-df0568f70950", 640) },
+    { id: "f6", name: "Gurkha noodle bowl", detail: "Wok noodles, seasonal greens, toasted sesame", price: 2.9, category: "Mains", image: photo("photo-1569718212165-3a8278d5f624", 640) }
   ]},
   { id: "r3", name: "Sundae Social", cuisine: "Dessert · Ice cream", rating: 4.7, time: "15–25 min", fee: 0, image: photo("photo-1563805042-7684c019e1cb"), accent: "#f8edcf", featured: false, menu: [
-    { id: "f7", name: "Salted caramel sundae", detail: "Brown butter cookie, vanilla bean, caramel", price: 8.5, category: "Dessert", image: photo("photo-1563805042-7684c019e1cb", 640), popular: true },
-    { id: "f8", name: "Strawberry shortcake cup", detail: "Macerated berries, cream, vanilla sponge", price: 9, category: "Dessert", image: photo("photo-1497034825429-c343d7c6a68f", 640) }
+    { id: "f7", name: "Salted caramel sundae", detail: "Brown butter cookie, vanilla bean, caramel", price: 1.8, category: "Dessert", image: photo("photo-1563805042-7684c019e1cb", 640), popular: true },
+    { id: "f8", name: "Strawberry shortcake cup", detail: "Macerated berries, cream, vanilla sponge", price: 1.8, category: "Dessert", image: photo("photo-1497034825429-c343d7c6a68f", 640) }
   ]},
-  { id: "r4", name: "Little Napoli", cuisine: "Italian · Pizza", rating: 4.6, time: "30–40 min", fee: 1.99, image: photo("photo-1579751626657-72bc17010498"), accent: "#f5ded9", featured: false, menu: [
-    { id: "f9", name: "Margherita, the classic", detail: "San Marzano tomato, fior di latte, basil", price: 15, category: "Pizza", image: photo("photo-1579751626657-72bc17010498", 640), popular: true },
-    { id: "f10", name: "Wild mushroom bianca", detail: "Roasted mushrooms, taleggio, thyme", price: 18, category: "Pizza", image: photo("photo-1571407970349-bc81e7e96d47", 640) }
+  { id: "r4", name: "Little Napoli", cuisine: "Italian · Pizza", rating: 4.6, time: "30–40 min", fee: 0.55, image: photo("photo-1579751626657-72bc17010498"), accent: "#f5ded9", featured: false, menu: [
+    { id: "f9", name: "Margherita, the classic", detail: "San Marzano tomato, fior di latte, basil", price: 5, category: "Pizza", image: photo("photo-1579751626657-72bc17010498", 640), popular: true },
+    { id: "f10", name: "Wild mushroom bianca", detail: "Roasted mushrooms, taleggio, thyme", price: 5.4, category: "Pizza", image: photo("photo-1571407970349-bc81e7e96d47", 640) }
+  ]},
+  { id: "r5", name: "Telugu Ruchulu", cuisine: "South Indian · Tiffin & Dosa", rating: 4.9, time: "20–30 min", fee: 0.35, image: "images/masala-dosa.webp", accent: "#f3e7c9", featured: true, menu: [
+    { id: "f11", name: "Masala dosa", detail: "Crisp rice crepe, spiced potato masala, coconut chutney and sambar", price: 1.8, category: "Dosa", image: "images/masala-dosa.webp", popular: true },
+    { id: "f12", name: "Idli sambar", detail: "Steamed rice cakes with lentil sambar and fresh coconut chutney", price: 1.2, category: "Tiffin", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/Idli_Sambar-Noida-UP-SP004.jpg/960px-Idli_Sambar-Noida-UP-SP004.jpg" },
+    { id: "f13", name: "Medu vada", detail: "Crisp lentil doughnuts, served with sambar and coconut chutney", price: 1.2, category: "Tiffin", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fd/Medu_Vada_and_Sambhar.JPG/960px-Medu_Vada_and_Sambhar.JPG" },
+    { id: "f14", name: "Ven pongal", detail: "Comforting rice and lentils with pepper, cumin, cashews and ghee", price: 1.5, category: "Mains", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/Ven_pongal_with_sambar_and_chutney.jpg/960px-Ven_pongal_with_sambar_and_chutney.jpg" },
+    { id: "f15", name: "Filter coffee", detail: "South Indian chicory coffee, brewed strong and served with milk", price: 0.6, category: "Drinks", image: "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b0/Foaming_filter_coffee.jpg/1280px-Foaming_filter_coffee.jpg" },
+    { id: "f16", name: "South Indian meals", detail: "Banana-leaf meal with rice, sambar, rasam, vegetables, papad and curd", price: 2.5, category: "Meals", image: "images/south-indian-meals.jpg", popular: true },
+    { id: "f17", name: "Chennai chicken biryani", detail: "Fragrant seeraga samba rice, spiced chicken, raita and salna", price: 2.8, category: "Biryani", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/Chicken_biryani_02-06-2015_%28India%29.jpg/960px-Chicken_biryani_02-06-2015_%28India%29.jpg" },
+    { id: "f18", name: "Vegetable biryani", detail: "Dum-cooked basmati rice, seasonal vegetables, herbs and raita", price: 2.3, category: "Biryani", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/Vegetable_Biryani_001.JPG/960px-Vegetable_Biryani_001.JPG" },
+    { id: "f24", name: "Poori", detail: "Golden-fried whole wheat breads served with potato masala", price: 1.5, category: "Tiffin", image: "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/da/Poori_puri_sabzi_dal_India.jpg/960px-Poori_puri_sabzi_dal_India.jpg" },
+    { id: "f25", name: "Onion dosa", detail: "Crisp dosa topped with finely sliced onion, herbs and spices", price: 2, category: "Dosa", image: "images/onion-dosa.png" },
+    { id: "f26", name: "Uggani", detail: "Andhra-style puffed rice tempered with mustard, chilli and turmeric", price: 1.5, category: "Rice", image: "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/49/Uggani_Dosa_Indian_rice_dish_1.jpg/960px-Uggani_Dosa_Indian_rice_dish_1.jpg" },
+    { id: "f27", name: "Tomato rice", detail: "Fragrant rice cooked with ripe tomatoes, curry leaves and spices", price: 2, category: "Rice", image: "images/tomato-rice.jpg" },
+    { id: "f28", name: "Parotta", detail: "Flaky, layered South Indian flatbread served with vegetable kurma", price: 1.8, category: "Mains", image: "images/parotta.jpg" }
+  ]},
+  { id: "r6", name: "Wok & Ginger", cuisine: "Chinese · Wok & Noodles", rating: 4.8, time: "25–35 min", fee: 0.4, image: photo("photo-1563245372-f21724e3856d"), accent: "#e4eee8", featured: false, menu: [
+    { id: "f19", name: "Vegetable Hakka noodles", detail: "Wok-tossed noodles with cabbage, peppers and spring onion", price: 2.4, category: "Noodles", image: photo("photo-1585032226651-759b368d7246", 640), popular: true },
+    { id: "f20", name: "Chicken fried rice", detail: "Wok-fried rice with chicken, egg, vegetables and scallions", price: 2.8, category: "Rice", image: photo("photo-1603133872878-684f208fb84b", 640) },
+    { id: "f21", name: "Chilli paneer", detail: "Crisp paneer tossed with peppers, onion and house chilli sauce", price: 2.8, category: "Small plates", image: photo("photo-1567337710282-00832b415979", 640) },
+    { id: "f22", name: "Chicken Manchurian", detail: "Ginger-garlic chicken in a savoury Indo-Chinese sauce", price: 3, category: "Mains", image: photo("photo-1562967914-608f82629710", 640) },
+    { id: "f23", name: "Vegetable spring rolls", detail: "Crisp rolls with cabbage, carrot and sweet chilli dip", price: 1.5, category: "Small plates", image: photo("photo-1601050690597-df0568f70950", 640) }
   ]}
 ];
 
@@ -45,12 +69,48 @@ const read = (key, fallback) => {
 };
 const save = (key, value) => localStorage.setItem(key, JSON.stringify(value));
 const escapeHtml = (value = "") => String(value).replace(/[&<>"']/g, character => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[character]);
-const money = value => `$${Number(value).toFixed(2)}`;
+const INR_PER_USD = 88;
+const inrFormatter = new Intl.NumberFormat("en-IN", { style: "currency", currency: "INR", maximumFractionDigits: 0 });
+const money = value => inrFormatter.format(Number(value) * INR_PER_USD);
 
 let users = read(KEYS.users, defaultUsers);
 let restaurants = read(KEYS.restaurants, starterRestaurants);
+if (Number(localStorage.getItem(CATALOG_VERSION_KEY) || 0) < CATALOG_VERSION) {
+  for (const seedRestaurant of starterRestaurants) {
+    let restaurant = restaurants.find(item => item.id === seedRestaurant.id);
+    if (!restaurant) {
+      restaurants.push(seedRestaurant);
+      continue;
+    }
+    restaurant.fee = seedRestaurant.fee;
+    if (seedRestaurant.id === "r5") {
+      restaurant.name = seedRestaurant.name;
+      restaurant.image = seedRestaurant.image;
+    }
+    restaurant.menu ||= [];
+    for (const seedItem of seedRestaurant.menu) {
+      const menuItem = restaurant.menu.find(item => item.id === seedItem.id);
+      if (menuItem) {
+        menuItem.price = seedItem.price;
+        if (seedRestaurant.id === "r5") menuItem.image = seedItem.image;
+      }
+      else restaurant.menu.push(seedItem);
+    }
+  }
+  save(KEYS.restaurants, restaurants);
+  localStorage.setItem(CATALOG_VERSION_KEY, String(CATALOG_VERSION));
+}
 let orders = read(KEYS.orders, []);
 let cart = read(KEYS.cart, []);
+let cartPricesChanged = false;
+for (const cartItem of cart) {
+  const menuItem = restaurants.find(restaurant => restaurant.id === cartItem.restaurantId)?.menu.find(item => item.id === cartItem.id);
+  if (menuItem && cartItem.price !== menuItem.price) {
+    cartItem.price = menuItem.price;
+    cartPricesChanged = true;
+  }
+}
+if (cartPricesChanged) save(KEYS.cart, cart);
 let currentUser = read(KEYS.session, null);
 let currentView = currentUser ? roleHome(currentUser.role) : "home";
 let activeCategory = "All";
@@ -67,7 +127,7 @@ function renderHeader() {
   const isCustomer = !currentUser || currentUser.role === "customer";
   const cartCount = cart.reduce((sum, item) => sum + item.quantity, 0);
   appHeader.innerHTML = `
-    <a class="brand" href="#home" data-view="home" aria-label="DashDish home"><span class="brand-mark">d.</span><span>dashdish</span></a>
+    <a class="brand" href="#home" data-view="home" aria-label="FOODZY home"><span class="brand-mark">f.</span><span>FOODZY</span></a>
     <div class="location-pill"><span class="location-dot"></span><span><small>Delivering to</small><strong>Brooklyn, NY</strong></span><span class="chevron">⌄</span></div>
     ${isCustomer ? `<label class="search-box"><span aria-hidden="true">⌕</span><input id="search-input" type="search" placeholder="Dishes, restaurants, cuisines" value="${escapeHtml(searchText)}" aria-label="Search dishes and restaurants"><kbd>/</kbd></label>` : `<div class="header-context">${escapeHtml(currentUser?.name || "Operations")}</div>`}
     <div class="header-actions">
@@ -177,7 +237,8 @@ function restaurantView() {
 function adminView() {
   if (!currentUser) return `<section class="access-gate"><span class="gate-mark">⌘</span><p class="eyebrow">ADMINISTRATION</p><h1>Operations, at a glance.</h1><p>Sign in with an admin account to oversee kitchens, accounts, and orders.</p><button class="primary-button" data-action="auth">Admin sign in <span>→</span></button></section>`;
   const activeOrders = orders.filter(order => !["Delivered", "Cancelled"].includes(order.status)).length;
-  return `<section class="operations-page admin-page"><div class="operations-header"><div><p class="eyebrow">DASHDISH · ADMIN CONSOLE</p><h1>Good food takes<br>a good system<span class="period">.</span></h1><p class="page-subtitle">Your neighborhood, running smoothly.</p></div><span class="admin-mark">DD<span>ADMIN</span></span></div><div class="metric-row"><div><span>Partner kitchens</span><strong>${restaurants.length}</strong></div><div><span>Active orders</span><strong>${activeOrders}</strong></div><div><span>Registered users</span><strong>${users.length}</strong></div><div><span>Orders today</span><strong>${orders.filter(order => new Date(order.createdAt).toDateString() === new Date().toDateString()).length}</strong></div></div><div class="admin-grid"><section class="operation-section"><div class="section-heading compact"><div><p class="eyebrow">PARTNER NETWORK</p><h2>Neighborhood kitchens</h2></div><button class="small-action" data-action="add-restaurant">＋ Add kitchen</button></div><div class="admin-restaurant-list">${restaurants.map(restaurant => `<article class="admin-restaurant"><img src="${escapeHtml(restaurant.image)}" alt="" loading="lazy"><div><h3>${escapeHtml(restaurant.name)}</h3><p>${escapeHtml(restaurant.cuisine)} · ${restaurant.menu.length} menu items</p></div><span class="rating">★ ${Number(restaurant.rating).toFixed(1)}</span></article>`).join("")}</div></section><section class="operation-section"><div class="section-heading compact"><div><p class="eyebrow">PEOPLE & PLATES</p><h2>Team access</h2></div></div><div class="user-roster">${users.map(user => `<div class="user-row"><span class="avatar">${escapeHtml(initials(user.name))}</span><div><strong>${escapeHtml(user.name)}</strong><span>${escapeHtml(user.email)}</span></div><span class="role-tag">${escapeHtml(user.role)}</span></div>`).join("")}</div></section></div><section class="operation-section all-orders-section"><div class="section-heading compact"><div><p class="eyebrow">LIVE ORDER DESK</p><h2>All orders</h2></div><span>${orders.length} total</span></div>${orders.length ? `<div class="order-list">${[...orders].sort((a, b) => b.createdAt - a.createdAt).map(order => orderCard(order, "admin")).join("")}</div>` : `<div class="empty-inline"><span>◷</span><p>No orders have been placed yet.</p></div>`}</section></section>`;
+  return `<section class="operations-page admin-page"><div class="operations-header"><div><p class="eyebrow">FOODZY · ADMIN CONSOLE</p>
+  <h1>Good food takes<br>a good system<span class="period">.</span></h1><p class="page-subtitle">Your neighborhood, running smoothly.</p></div><span class="admin-mark">FZ<span>ADMIN</span></span></div><div class="metric-row"><div><span>Partner kitchens</span><strong>${restaurants.length}</strong></div><div><span>Active orders</span><strong>${activeOrders}</strong></div><div><span>Registered users</span><strong>${users.length}</strong></div><div><span>Orders today</span><strong>${orders.filter(order => new Date(order.createdAt).toDateString() === new Date().toDateString()).length}</strong></div></div><div class="admin-grid"><section class="operation-section"><div class="section-heading compact"><div><p class="eyebrow">PARTNER NETWORK</p><h2>Neighborhood kitchens</h2></div><button class="small-action" data-action="add-restaurant">＋ Add kitchen</button></div><div class="admin-restaurant-list">${restaurants.map(restaurant => `<article class="admin-restaurant"><img src="${escapeHtml(restaurant.image)}" alt="" loading="lazy"><div><h3>${escapeHtml(restaurant.name)}</h3><p>${escapeHtml(restaurant.cuisine)} · ${restaurant.menu.length} menu items</p></div><span class="rating">★ ${Number(restaurant.rating).toFixed(1)}</span></article>`).join("")}</div></section><section class="operation-section"><div class="section-heading compact"><div><p class="eyebrow">PEOPLE & PLATES</p><h2>Team access</h2></div></div><div class="user-roster">${users.map(user => `<div class="user-row"><span class="avatar">${escapeHtml(initials(user.name))}</span><div><strong>${escapeHtml(user.name)}</strong><span>${escapeHtml(user.email)}</span></div><span class="role-tag">${escapeHtml(user.role)}</span></div>`).join("")}</div></section></div><section class="operation-section all-orders-section"><div class="section-heading compact"><div><p class="eyebrow">LIVE ORDER DESK</p><h2>All orders</h2></div><span>${orders.length} total</span></div>${orders.length ? `<div class="order-list">${[...orders].sort((a, b) => b.createdAt - a.createdAt).map(order => orderCard(order, "admin")).join("")}</div>` : `<div class="empty-inline"><span>◷</span><p>No orders have been placed yet.</p></div>`}</section></section>`;
 }
 
 function deliveryView() {
@@ -213,7 +274,7 @@ function closeModal() {
 
 function authModal(mode = "login") {
   const signup = mode === "signup";
-  openModal(`<button class="modal-close" data-action="close-modal" aria-label="Close">×</button><div class="modal-brand"><span class="brand-mark">d.</span><span>dashdish</span></div><p class="eyebrow">${signup ? "COME ON IN" : "GOOD TO SEE YOU"}</p><h2>${signup ? "Make yourself at home." : "Dinner's closer than you think."}</h2><p class="modal-intro">${signup ? "Create an account to order from your neighborhood." : "Sign in to get your favorites delivered."}</p><div class="auth-tabs"><button class="${!signup ? "active" : ""}" data-auth-mode="login">Sign in</button><button class="${signup ? "active" : ""}" data-auth-mode="signup">Create account</button></div><form id="auth-form" data-mode="${signup ? "signup" : "login"}">${signup ? `<label>Your name<input name="name" autocomplete="name" placeholder="Jordan Smith" required></label>` : ""}<label>Email address<input name="email" type="email" autocomplete="email" placeholder="you@example.com" required></label><label>Password<input name="password" type="password" autocomplete="${signup ? "new-password" : "current-password"}" placeholder="${signup ? "At least 6 characters" : "Your password"}" minlength="6" required></label>${signup ? `<label>Account type<select name="role"><option value="customer">Customer</option><option value="restaurant">Restaurant partner</option><option value="delivery">Delivery partner</option></select></label>` : ""}<button class="primary-button auth-submit" type="submit">${signup ? "Create account" : "Sign in"} <span>→</span></button></form>${!signup ? `<div class="demo-access"><strong>Demo accounts</strong><span>Admin: admin@dashdish.local / admin123</span><span>Customer: customer@dashdish.local / food123</span><span>Restaurant: restaurant@dashdish.local / food123</span><span>Delivery: driver@dashdish.local / food123</span></div>` : `<p class="signup-note">Admin access is assigned by an administrator.</p>`}</div>`, "auth-modal");
+  openModal(`<button class="modal-close" data-action="close-modal" aria-label="Close">×</button><div class="modal-brand"><span class="brand-mark">f.</span><span>FOODZY</span></div><p class="eyebrow">${signup ? "COME ON IN" : "GOOD TO SEE YOU"}</p><h2>${signup ? "Make yourself at home." : "Dinner's closer than you think."}</h2><p class="modal-intro">${signup ? "Create an account to order from your neighborhood." : "Sign in to get your favorites delivered."}</p><div class="auth-tabs"><button class="${!signup ? "active" : ""}" data-auth-mode="login">Sign in</button><button class="${signup ? "active" : ""}" data-auth-mode="signup">Create account</button></div><form id="auth-form" data-mode="${signup ? "signup" : "login"}">${signup ? `<label>Your name<input name="name" autocomplete="name" placeholder="Jordan Smith" required></label>` : ""}<label>Email address<input name="email" type="email" autocomplete="email" placeholder="you@example.com" required></label><label>Password<input name="password" type="password" autocomplete="${signup ? "new-password" : "current-password"}" placeholder="${signup ? "At least 6 characters" : "Your password"}" minlength="6" required></label>${signup ? `<label>Account type<select name="role"><option value="customer">Customer</option><option value="restaurant">Restaurant partner</option><option value="delivery">Delivery partner</option></select></label>` : ""}<button class="primary-button auth-submit" type="submit">${signup ? "Create account" : "Sign in"} <span>→</span></button></form>${!signup ? `<div class="demo-access"><strong>Demo accounts</strong><span>Admin: admin@dashdish.local / admin123</span><span>Customer: customer@dashdish.local / food123</span><span>Restaurant: restaurant@dashdish.local / food123</span><span>Delivery: driver@dashdish.local / food123</span></div>` : `<p class="signup-note">Admin access is assigned by an administrator.</p>`}</div>`, "auth-modal");
 }
 
 function cartModal() {
@@ -265,11 +326,11 @@ function transitionOrder(orderId, nextStatus) {
 function addMenuItem() {
   const restaurant = restaurants.find(item => item.id === currentUser?.restaurantId) || restaurants[0];
   if (!restaurant) return;
-  openModal(`<button class="modal-close" data-action="close-modal" aria-label="Close">×</button><p class="eyebrow">KITCHEN MENU</p><h2>Add something delicious.</h2><form id="menu-form"><label>Dish name<input name="name" placeholder="Roasted tomato focaccia" required></label><label>Description<input name="detail" placeholder="A little about the dish" required></label><div class="form-columns"><label>Price<input name="price" type="number" min="0.5" step="0.5" placeholder="12.50" required></label><label>Category<input name="category" placeholder="Small plates" required></label></div><button class="primary-button auth-submit" type="submit">Add to menu <span>→</span></button></form>`, "form-modal");
+  openModal(`<button class="modal-close" data-action="close-modal" aria-label="Close">×</button><p class="eyebrow">KITCHEN MENU</p><h2>Add something delicious.</h2><form id="menu-form"><label>Dish name<input name="name" placeholder="Roasted tomato focaccia" required></label><label>Description<input name="detail" placeholder="A little about the dish" required></label><div class="form-columns"><label>Price (₹)<input name="price" type="number" min="0.5" step="0.5" placeholder="250" required></label><label>Category<input name="category" placeholder="Small plates" required></label></div><button class="primary-button auth-submit" type="submit">Add to menu <span>→</span></button></form>`, "form-modal");
 }
 
 function addRestaurant() {
-  openModal(`<button class="modal-close" data-action="close-modal" aria-label="Close">×</button><p class="eyebrow">PARTNER NETWORK</p><h2>Welcome a new kitchen.</h2><form id="restaurant-form"><label>Restaurant name<input name="name" placeholder="The Corner Table" required></label><label>Cuisine & specialty<input name="cuisine" placeholder="Seasonal · Modern American" required></label><div class="form-columns"><label>Delivery time<input name="time" placeholder="20–30 min" required></label><label>Delivery fee<input name="fee" type="number" min="0" step="0.25" placeholder="1.50" required></label></div><label>Food photo URL<input name="image" type="url" placeholder="https://..." required></label><button class="primary-button auth-submit" type="submit">Add kitchen <span>→</span></button></form>`, "form-modal");
+  openModal(`<button class="modal-close" data-action="close-modal" aria-label="Close">×</button><p class="eyebrow">PARTNER NETWORK</p><h2>Welcome a new kitchen.</h2><form id="restaurant-form"><label>Restaurant name<input name="name" placeholder="The Corner Table" required></label><label>Cuisine & specialty<input name="cuisine" placeholder="Seasonal · Modern American" required></label><div class="form-columns"><label>Delivery time<input name="time" placeholder="20–30 min" required></label><label>Delivery fee (₹)<input name="fee" type="number" min="0" step="0.25" placeholder="100" required></label></div><label>Food photo URL<input name="image" type="url" placeholder="https://..." required></label><button class="primary-button auth-submit" type="submit">Add kitchen <span>→</span></button></form>`, "form-modal");
 }
 
 document.addEventListener("click", event => {
@@ -390,7 +451,7 @@ document.addEventListener("submit", event => {
       currentView = roleHome(role);
       closeModal();
       render();
-      showToast(`Welcome to DashDish, ${newUser.name.split(" ")[0]}.`);
+      showToast(`Welcome to FOODZY, ${newUser.name.split(" ")[0]}.`);
       return;
     }
     const found = users.find(user => user.email.toLowerCase() === email && user.password === password);
@@ -439,7 +500,7 @@ document.addEventListener("submit", event => {
     const form = new FormData(event.target);
     const restaurant = restaurants.find(item => item.id === currentUser?.restaurantId) || restaurants[0];
     if (!restaurant) return;
-    restaurant.menu.push({ id: `f-${Date.now()}`, name: String(form.get("name")).trim(), detail: String(form.get("detail")).trim(), price: Number(form.get("price")), category: String(form.get("category")).trim(), image: restaurant.image });
+    restaurant.menu.push({ id: `f-${Date.now()}`, name: String(form.get("name")).trim(), detail: String(form.get("detail")).trim(), price: Number(form.get("price")) / INR_PER_USD, category: String(form.get("category")).trim(), image: restaurant.image });
     save(KEYS.restaurants, restaurants);
     closeModal();
     render();
@@ -448,7 +509,7 @@ document.addEventListener("submit", event => {
   if (event.target.id === "restaurant-form") {
     event.preventDefault();
     const form = new FormData(event.target);
-    restaurants.push({ id: `r-${Date.now()}`, name: String(form.get("name")).trim(), cuisine: String(form.get("cuisine")).trim(), rating: 5, time: String(form.get("time")).trim(), fee: Number(form.get("fee")), image: String(form.get("image")).trim(), accent: "#e7ebe0", featured: false, menu: [] });
+    restaurants.push({ id: `r-${Date.now()}`, name: String(form.get("name")).trim(), cuisine: String(form.get("cuisine")).trim(), rating: 5, time: String(form.get("time")).trim(), fee: Number(form.get("fee")) / INR_PER_USD, image: String(form.get("image")).trim(), accent: "#e7ebe0", featured: false, menu: [] });
     save(KEYS.restaurants, restaurants);
     closeModal();
     render();
